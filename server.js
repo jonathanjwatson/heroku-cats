@@ -27,6 +27,7 @@ app.set("view engine", "handlebars");
 app.get("/", function (req, res) {
   connection.query("SELECT * FROM cats", function (err, data) {
     if (err) {
+      console.log(err);
       return res.status(500).send("An error occurred");
     }
     res.render("index", { cats: data });
