@@ -20,19 +20,9 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Import routes and give the server access to them.
-// var routes = require("./controllers/catsController.js");
+const catRoutes = require("./controllers/catsController.js");
 
-// app.use(routes);
-
-app.get("/", function (req, res) {
-  connection.query("SELECT * FROM cats", function (err, data) {
-    if (err) {
-      console.log(err);
-      return res.status(500).send("An error occurred");
-    }
-    res.render("index", { cats: data });
-  });
-});
+app.use(catRoutes);
 
 // Start our server so that it can begin listening to client requests.
 app.listen(PORT, function () {
