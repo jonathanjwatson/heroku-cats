@@ -1,1 +1,35 @@
 <h1>This is my homepage. </h1>
+
+<div>
+    {{#each cats}}
+    <div>{{name}}</div>
+    <div><button class="delete-cat" data-id={{id}}>Delete this cat</button></div>
+    {{/each}}
+</div>
+
+<h1>Sleepy Cats</h1>
+{{#each cats}}
+{{#if this.sleepy}}
+<h3>{{name}}</h3>
+{{/if}}
+{{/each}}
+
+<h1>Not Sleepy Cats</h1>
+{{#each cats}}
+{{#unless this.sleepy}}
+<h3>{{name}}</h3>
+{{/unless}}
+{{/each}}
+
+<script>
+    $(".delete-cat").on("click", function () {
+        console.log($(this).data("id"));
+        const idToDelete = $(this).data("id");
+        $.ajax(`/api/cats/${idToDelete}`, {
+            type: 'DELETE'
+        }).then(response => {
+            console.log(response);
+            location.reload();
+        })
+    })
+</script>
